@@ -1,15 +1,23 @@
 export class UniqueArc
 {
     static maxOutRadius=0;
+    static centerX=0;
+    static centerY=0;
+    static layerSize=50;
     constructor(outRadius,size,start_angle,angle_size,layer)
     {
+        //The outer radius is the radius of the circle we are drawing.
         this.outRadius=outRadius;
+
+        //The inner radius is the radius of the circle we are erasing. This allows us to create circular arcs.
+        this.inRadius=outRadius-UniqueArc.layerSize+size;
+
         UniqueArc.maxOutRadius=Math.max(this.outRadius,UniqueArc.maxOutRadius);
-        this.inRadius=outRadius-50+size;
-        console.log(this.outRadius,this.inRadius);
 
         this.size=size;
         this.angle=start_angle;
+
+        //How many radians the angle is.
         this.angle_size=angle_size;
 
         this.layer=layer;
@@ -17,7 +25,10 @@ export class UniqueArc
     }
     step()
     {
+        //The arc should rotate slower the further away it is from the circle
         this.rotation_ratio=(1.2*UniqueArc.maxOutRadius-this.outRadius)/(UniqueArc.maxOutRadius);
+
+        //If the layer is even, rotate clockwise. If the layer is odd, rotate counterclockwise.
         if(this.layer%2==0)
         {
             this.angle+=this.rotation_ratio*0.05;
@@ -37,17 +48,22 @@ export class UniqueArc
     }
     draw(c,ctx)
     {
-        ctx.fillStyle=`hsl(${(this.outRadius-50)%360}, 50%, 70%)`;
+        ctx.lineWidth = 0;
+
+        //Change the color the further away from the center the point is.
+        ctx.fillStyle=`hsl(${(this.outRadius-UniqueArc.layerSize)%360}, 50%, 70%)`;
         ctx.beginPath();
-        ctx.moveTo(c.width/2, c.height/2); // Move to the center of the circle
-        ctx.arc(c.width/2,c.height/2,this.outRadius,this.angle,this.angle+this.angle_size);
+        ctx.moveTo(UniqueArc.centerX, UniqueArc.centerY); // Move to the center of the circle
+        ctx.arc(UniqueArc.centerX,UniqueArc.centerY,this.outRadius,this.angle,this.angle+this.angle_size);
         ctx.fill();
         ctx.closePath();
 
+        //Erase the inner circle to create an arc.
         ctx.fillStyle="#000000";
+        ctx.strokeStyle="#000000";
         ctx.beginPath();
-        ctx.moveTo(c.width/2, c.height/2); // Move to the center of the circle
-        ctx.arc(c.width/2,c.height/2,this.outRadius-50+this.size,this.angle,this.angle+this.angle_size);
+        ctx.moveTo(UniqueArc.centerX, UniqueArc.centerY); // Move to the center of the circle
+        ctx.arc(UniqueArc.centerX,UniqueArc.centerY,this.outRadius-UniqueArc.layerSize+this.size,this.angle,this.angle+this.angle_size);
         ctx.fill();
         ctx.closePath();
     }
