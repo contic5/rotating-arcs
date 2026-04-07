@@ -48,23 +48,21 @@ export class UniqueArc
     }
     draw(c,ctx)
     {
-        ctx.lineWidth = 0;
-
+        ctx.strokeWidth = 0;
+        const epsilon = 0.001; // small angle overlap
+        
         //Change the color the further away from the center the point is.
         ctx.fillStyle=`hsl(${(this.outRadius-UniqueArc.layerSize)%360}, 50%, 70%)`;
         ctx.beginPath();
-        ctx.moveTo(UniqueArc.centerX, UniqueArc.centerY); // Move to the center of the circle
+        
+        //Draw an arc by using both an outer arc and inner arc
         ctx.arc(UniqueArc.centerX,UniqueArc.centerY,this.outRadius,this.angle,this.angle+this.angle_size);
-        ctx.fill();
-        ctx.closePath();
 
-        //Erase the inner circle to create an arc.
-        ctx.fillStyle="#000000";
-        ctx.strokeStyle="#000000";
-        ctx.beginPath();
-        ctx.moveTo(UniqueArc.centerX, UniqueArc.centerY); // Move to the center of the circle
-        ctx.arc(UniqueArc.centerX,UniqueArc.centerY,this.outRadius-UniqueArc.layerSize+this.size,this.angle,this.angle+this.angle_size);
-        ctx.fill();
+        //Draw an arc by using both an outer arc and inner arc.
+        //INNER ARC MUST ROTATE BACKWARDS TO GET TO THE ORIGINAL POINT. USE COUNTERCLOCKWISE INSTEAD OF CLOCKWISE.
+        ctx.arc(UniqueArc.centerX,UniqueArc.centerY,this.inRadius,this.angle+this.angle_size,this.angle,true);
+    
         ctx.closePath();
+        ctx.fill();
     }
 }

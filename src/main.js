@@ -20,10 +20,13 @@ function main()
     {
         //How many arcs there are in this layer
         let layer_arcs=layer+min_layer_arcs;
+
+        //The first start angle
+        let start_angle=(2*Math.PI*(layer%4))/layer_arcs;
         for(let j=0;j<layer_arcs;j++)
         {
-            let rotation_amount=(layer%4)+j;
-            let start_angle=(2*Math.PI*(rotation_amount))/layer_arcs;
+            //Each arc should rotate over so it does not lay ontop of another arc.
+            start_angle+=(2*Math.PI)/layer_arcs;
 
             //Use this to make sure each arc has half empty space
             const angle_size=(2*Math.PI/(2*layer_arcs));
@@ -38,7 +41,6 @@ function main()
 
 let c=document.getElementById("my_canvas");
 let ctx=c.getContext("2d");
-
 UniqueArc.centerX=c.width/2;
 UniqueArc.centerY=c.height/2;
 UniqueArc.layerSize=50;
