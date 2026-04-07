@@ -1,0 +1,17 @@
+{
+  "name": "rotating_arcs",
+  "version": "1.0.0",
+  "description": "test",
+  "keywords": [
+    "rotating"
+  ],
+  "license": "ISC",
+  "author": "CJ Conti",
+  "type": "commonjs",
+  "main": "index.html",
+  "scripts": 
+  {
+    "dev": "vite",
+    "start": "node app.js"
+  }
+}
