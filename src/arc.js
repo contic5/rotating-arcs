@@ -6,6 +6,8 @@ export class UniqueArc
     static layer_size=50;
     static turn_speed=0.05;
     static empty_space=30;
+    static lighting=50;
+    
     constructor(out_radius,start_angle,angle_size,layer)
     {
         //The outer radius is the radius of the circle we are drawing.
@@ -52,7 +54,7 @@ export class UniqueArc
         const epsilon = 0.001; // small angle overlap
         
         //Change the color the further away from the center the point is.
-        ctx.fillStyle=`hsl(${(this.out_radius-UniqueArc.layer_size)%360}, 50%, 70%)`;
+        ctx.fillStyle=`hsl(${(this.out_radius-UniqueArc.layer_size)%360}, 50%, ${UniqueArc.lighting}%)`;
         ctx.beginPath();
         
         //Draw an arc by using both an outer arc and inner arc

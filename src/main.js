@@ -53,12 +53,18 @@ export function update_values()
     console.log(`Min Layer Arcs: ${min_layer_arcs}`);
 
     UniqueArc.layer_size=parseInt(document.getElementById("layer_size").value);
-    console.log(`Layer Size: ${UniqueArc.layer_size}`);
 
     UniqueArc.empty_space=parseInt(document.getElementById("empty_space").value);
+
+    //Make sure empty space is always smaller than layer size.
+    UniqueArc.empty_space=Math.min(UniqueArc.empty_space,UniqueArc.layer_size-1);
+    document.getElementById("empty_space").value=UniqueArc.empty_space;
+
+    console.log(`Layer Size: ${UniqueArc.layer_size}`);
     console.log(`Empty Space: ${empty_space}`);
 
-
+    UniqueArc.lighting=parseInt(document.getElementById("lighting").value);
+    console.log(`Lighting: ${UniqueArc.lighting}`);
 
     main();
 }
