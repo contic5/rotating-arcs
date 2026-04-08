@@ -33,14 +33,16 @@ function main()
             const angle_size=(2*Math.PI/(2*layer_arcs));
 
             //The outer radius should equal the layer size*(layer+1)
-            const outRadius=UniqueArc.layerSize*(layer+1);
-            arcs.push(new UniqueArc(outRadius,30,start_angle,angle_size,layer));
+            const outRadius=UniqueArc.layer_size*(layer+1);
+            arcs.push(new UniqueArc(outRadius,start_angle,angle_size,layer));
         }
     }
     arcs.sort((a,b)=>b.outRadius-a.outRadius);
 }
 export function update_values()
 {
+    console.log("Updated Values");
+
     UniqueArc.turn_speed=parseInt(document.getElementById("turn_speed").value)*0.001;
     console.log(`Arc Turn Speed: ${UniqueArc.turn_speed}`);
 
@@ -50,6 +52,14 @@ export function update_values()
     min_layer_arcs=parseInt(document.getElementById("min_layer_arcs").value);
     console.log(`Min Layer Arcs: ${min_layer_arcs}`);
 
+    UniqueArc.layer_size=parseInt(document.getElementById("layer_size").value);
+    console.log(`Layer Size: ${UniqueArc.layer_size}`);
+
+    UniqueArc.empty_space=parseInt(document.getElementById("empty_space").value);
+    console.log(`Empty Space: ${empty_space}`);
+
+
+
     main();
 }
 
@@ -57,10 +67,13 @@ let c=document.getElementById("my_canvas");
 let ctx=c.getContext("2d");
 UniqueArc.centerX=c.width/2;
 UniqueArc.centerY=c.height/2;
-UniqueArc.layerSize=50;
+UniqueArc.layer_size=50;
 
 
 let arcs=[];
+
+//How much empty space there is in the layer.
+let empty_space=30;
 
 //How many layers
 let max_layers=9;
