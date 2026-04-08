@@ -2,7 +2,7 @@ import { UniqueArc } from './arc.js';
 
 function clear()
 {
-    ctx.fillStyle="#000000";
+    ctx.fillStyle=background_color;
     ctx.fillRect(0,0,c.width,c.height);
 }
 function draw()
@@ -61,11 +61,16 @@ export function update_values()
     document.getElementById("empty_space").value=UniqueArc.empty_space;
 
     console.log(`Layer Size: ${UniqueArc.layer_size}`);
-    console.log(`Empty Space: ${empty_space}`);
+    console.log(`Empty Space: ${UniqueArc.empty_space}`);
 
     UniqueArc.lighting=parseInt(document.getElementById("lighting").value);
     console.log(`Lighting: ${UniqueArc.lighting}`);
 
+    UniqueArc.saturation=parseInt(document.getElementById("saturation").value);
+
+    background_color=document.getElementById("background_color").value;
+
+    
     main();
 }
 
@@ -86,6 +91,8 @@ let max_layers=9;
 
 //How many arcs the first layer should have
 let min_layer_arcs=4;
+
+let background_color="#000000";
 
 
 main();

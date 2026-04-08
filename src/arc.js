@@ -7,6 +7,7 @@ export class UniqueArc
     static turn_speed=0.05;
     static empty_space=30;
     static lighting=50;
+    static saturation=50;
     
     constructor(out_radius,start_angle,angle_size,layer)
     {
@@ -54,7 +55,7 @@ export class UniqueArc
         const epsilon = 0.001; // small angle overlap
         
         //Change the color the further away from the center the point is.
-        ctx.fillStyle=`hsl(${(this.out_radius-UniqueArc.layer_size)%360}, 50%, ${UniqueArc.lighting}%)`;
+        ctx.fillStyle=`hsl(${(this.out_radius-UniqueArc.layer_size)%360}, ${UniqueArc.saturation}%, ${UniqueArc.lighting}%)`;
         ctx.beginPath();
         
         //Draw an arc by using both an outer arc and inner arc
