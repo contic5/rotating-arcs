@@ -78,12 +78,14 @@
 </table>
 
 </form>
+<button id="toggle_pause_button">Pause</button>
+
 <h2>The Drawing</h2>
 <canvas id="my_canvas" width="700" height="700"></canvas>
 </main>
 <script src="src/main.js" type="module"></script>
 <script type="module">
-import {update_values} from "./src/main.js";
+import {update_values,toggle_pause} from "./src/main.js";
 
 let inputs=document.getElementsByTagName("input");
 
@@ -91,6 +93,9 @@ for(let input of inputs)
 {
     input.onchange=update_values;
 }
+
+document.getElementById("toggle_pause_button").onclick=toggle_pause;
+
 update_values();
 </script>
 </body>

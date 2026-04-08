@@ -14,6 +14,24 @@ function draw()
         arc.draw(c,ctx);
     }
 }
+function draw_centered()
+{
+    clear();
+    /*
+    while(arcs[0].start_angle<Math.PI);
+    {
+        for(let arc of arcs)
+        {
+            arc.step();
+        }
+    }
+    */
+
+    for(let arc of arcs)
+    {
+        arc.draw(c,ctx);
+    }
+}
 function main()
 {
     arcs=[];
@@ -72,8 +90,27 @@ export function update_values()
 
     
     main();
+    if(!moving)
+    {
+        draw_centered();
+    }
 }
+export function toggle_pause()
+{
+    if(my_interval!=null)
+    {
+        document.getElementById("toggle_pause_button").innerHTML="Play";
 
+        clearInterval(my_interval);
+        my_interval=null;
+    }
+    else
+    {
+        document.getElementById("toggle_pause_button").innerHTML="Pause";
+
+        my_interval=setInterval(draw,1000/30);
+    }
+}
 let c=document.getElementById("my_canvas");
 let ctx=c.getContext("2d");
 UniqueArc.centerX=c.width/2;
@@ -84,7 +121,6 @@ UniqueArc.layer_size=50;
 let arcs=[];
 
 //How much empty space there is in the layer.
-let empty_space=30;
 
 //How many layers
 let max_layers=9;
@@ -96,5 +132,15 @@ let background_color="#000000";
 
 
 main();
-setInterval(draw,1000/30);
-draw();
+let moving=true;
+
+let my_interval=null;
+if(moving)
+{
+    my_interval=setInterval(draw,1000/30);
+    draw();
+}
+else
+{
+    draw_centered();
+}
