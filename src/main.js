@@ -16,6 +16,7 @@ function draw()
 }
 function main()
 {
+    arcs=[];
     for(let layer=0;layer<max_layers;layer++)
     {
         //How many arcs there are in this layer
@@ -37,6 +38,19 @@ function main()
         }
     }
     arcs.sort((a,b)=>b.outRadius-a.outRadius);
+}
+export function update_values()
+{
+    UniqueArc.turn_speed=parseInt(document.getElementById("turn_speed").value)*0.001;
+    console.log(`Arc Turn Speed: ${UniqueArc.turn_speed}`);
+
+    max_layers=parseInt(document.getElementById("max_layers").value);
+    console.log(`Max Layers: ${max_layers}`);
+
+    min_layer_arcs=parseInt(document.getElementById("min_layer_arcs").value);
+    console.log(`Min Layer Arcs: ${min_layer_arcs}`);
+
+    main();
 }
 
 let c=document.getElementById("my_canvas");

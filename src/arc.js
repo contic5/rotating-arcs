@@ -4,6 +4,7 @@ export class UniqueArc
     static centerX=0;
     static centerY=0;
     static layerSize=50;
+    static turn_speed=0.05;
     constructor(outRadius,size,start_angle,angle_size,layer)
     {
         //The outer radius is the radius of the circle we are drawing.
@@ -31,7 +32,7 @@ export class UniqueArc
         //If the layer is even, rotate clockwise. If the layer is odd, rotate counterclockwise.
         if(this.layer%2==0)
         {
-            this.angle+=this.rotation_ratio*0.05;
+            this.angle+=this.rotation_ratio*UniqueArc.turn_speed;
             if(this.angle>2*Math.PI)
             {
                 this.angle-=2*Math.PI;
@@ -39,7 +40,7 @@ export class UniqueArc
         }
         else
         {
-            this.angle-=this.rotation_ratio*0.05;
+            this.angle-=this.rotation_ratio*UniqueArc.turn_speed;
             if(this.angle<0)
             {
                 this.angle+=2*Math.PI;
