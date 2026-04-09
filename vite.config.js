@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  base: "/Rotating_Arcs/", // 👈 replace with your repo name
+  base: "/rotating-arcs/", // 👈 replace with your repo name
 })
