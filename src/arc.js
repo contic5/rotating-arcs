@@ -1,3 +1,5 @@
+import { hex_to_rgb,rgb_to_hsl } from './support.js';
+
 export class UniqueArc
 {
     static max_out_radius=0;
@@ -11,8 +13,9 @@ export class UniqueArc
     static uneven_rotation_speed=true;
     static using_one_color=false;
     static drawing_color="#ffffff";
+    static inverted_hex_color=null;
     
-    constructor(out_radius,start_angle,angle_size,layer)
+    constructor(out_radius,start_angle,angle_size,layer,inverted=false)
     {
         //The outer radius is the radius of the circle we are drawing.
         this.out_radius=out_radius;
@@ -28,6 +31,16 @@ export class UniqueArc
         this.angle_size=angle_size;
 
         this.layer=layer;
+
+        this.inverted=inverted;
+        if(this.inverted&&UniqueArc.using_one_color)
+        {
+            let rgb=hex_to_rgb(UniqueArc.drawing_color);
+            let hsl=rgb_to_hsl(rgb[0],rgb[1],rgb[2]);
+            hsl[0]=(hsl[0]+180)%360;
+
+            UniqueArc.inverted_hex_color=hsl;
+        }
     }
     step()
     {
@@ -64,11 +77,22 @@ export class UniqueArc
         //Change the color the further away from the center the point is.
         if(UniqueArc.using_one_color)
         {
-            ctx.fillStyle=UniqueArc.drawing_color;
+            if(this.inverted)
+            {
+                ctx.fillStyle=`hsl(${UniqueArc.inverted_hex_color[0]}, ${UniqueArc.inverted_hex_color[1]}%, ${UniqueArc.inverted_hex_color[2]}%)`;
+            }
+            else
+            {
+                ctx.fillStyle=UniqueArc.drawing_color;
+            }
         }
         else
         {
             let hue=(this.out_radius-UniqueArc.layer_size)%360;
+            if(this.inverted)
+            {
+                hue=(hue+180)%360;
+            }
             ctx.fillStyle=`hsl(${hue}, ${UniqueArc.saturation}%, ${UniqueArc.lighting}%)`;
         }
         ctx.beginPath();

@@ -57,6 +57,10 @@ function main()
             //The outer radius should equal the layer size*(layer+1)
             const outRadius=UniqueArc.layer_size*(layer+1);
             arcs.push(new UniqueArc(outRadius,start_angle,angle_size,layer));
+            if(including_inverted_arcs)
+            {
+                arcs.push(new UniqueArc(outRadius,start_angle+Math.PI/layer_arcs,angle_size,layer,true));
+            }
         }
     }
     arcs.sort((a,b)=>b.outRadius-a.outRadius);
@@ -139,13 +143,15 @@ let max_layers=9;
 //How many arcs the first layer should have
 let min_layer_arcs=4;
 
+let including_inverted_arcs=true;
+
 let add_arc_for_each_layer=true;
 
 let background_color="#000000";
 
 
 main();
-let moving=true;
+let moving=false;
 
 let my_interval=null;
 if(moving)
