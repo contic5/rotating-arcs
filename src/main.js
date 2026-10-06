@@ -128,7 +128,7 @@ export function toggle_pause()
 }
 let c=document.getElementById("my_canvas");
 c.width=window.innerWidth;
-c.height=window.innerHeight+50;
+c.height=window.innerHeight-30;
 let ctx=c.getContext("2d");
 UniqueArc.centerX=c.width/2;
 UniqueArc.centerY=c.height/2;
