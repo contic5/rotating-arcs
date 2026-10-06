@@ -127,6 +127,8 @@ export function toggle_pause()
     }
 }
 let c=document.getElementById("my_canvas");
+c.width=window.innerWidth;
+c.height=window.innerHeight+50;
 let ctx=c.getContext("2d");
 UniqueArc.centerX=c.width/2;
 UniqueArc.centerY=c.height/2;
@@ -151,7 +153,7 @@ let background_color="#000000";
 
 
 main();
-let moving=false;
+let moving=true;
 
 let my_interval=null;
 if(moving)
