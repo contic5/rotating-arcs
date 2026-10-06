@@ -1,0 +1,17 @@
+body
+{
+    background-color: hsl(180, 50%, 50%);
+}
+main
+{
+    background-color: hsl(180, 50%, 86%);
+    max-width: 700px;
+    margin: auto;
+    padding: 10px;
+}
+#canvas_holder
+{
+    background-color: black;
+    padding: 30px 0px;
+    width:100%
+}
